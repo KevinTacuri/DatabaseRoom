@@ -32,19 +32,21 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = rooms.get(position);
-        holder.roomName.setText(room.getName());
-
-        PaintingAdapter paintingAdapter = new PaintingAdapter(room.getPaintings());
-        holder.paintingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.paintingsRecyclerView.setAdapter(paintingAdapter);
-
-        boolean isExpanded = room.isExpanded();
-        holder.paintingsRecyclerView.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.nameTextView.setText(room.getName());
 
         holder.itemView.setOnClickListener(v -> {
-            room.setExpanded(!room.isExpanded());
-            notifyItemChanged(position);
+            // Toggle visibility of paintings RecyclerView
+            if (holder.paintingsRecyclerView.getVisibility() == View.VISIBLE) {
+                holder.paintingsRecyclerView.setVisibility(View.GONE);
+            } else {
+                holder.paintingsRecyclerView.setVisibility(View.VISIBLE);
+            }
         });
+
+        // Set up the paintings RecyclerView
+        PaintingAdapter paintingAdapter = new PaintingAdapter(room.getPaintings(), context);
+        holder.paintingsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.paintingsRecyclerView.setAdapter(paintingAdapter);
     }
 
     @Override
@@ -53,12 +55,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        TextView roomName;
+        TextView nameTextView;
         RecyclerView paintingsRecyclerView;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomName = itemView.findViewById(R.id.roomName);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
             paintingsRecyclerView = itemView.findViewById(R.id.paintingsRecyclerView);
         }
     }

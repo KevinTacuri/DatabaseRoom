@@ -1,21 +1,28 @@
 package com.example.centrocultural;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.centrocultural.fragments.PaintingDetailFragment;
 
 import java.util.List;
 
 public class PaintingAdapter extends RecyclerView.Adapter<PaintingAdapter.PaintingViewHolder> {
 
     private List<Painting> paintings;
+    private Context context;
 
-    public PaintingAdapter(List<Painting> paintings) {
+    public PaintingAdapter(List<Painting> paintings, Context context) {
         this.paintings = paintings;
+        this.context = context;
     }
 
     @NonNull
@@ -28,7 +35,25 @@ public class PaintingAdapter extends RecyclerView.Adapter<PaintingAdapter.Painti
     @Override
     public void onBindViewHolder(@NonNull PaintingViewHolder holder, int position) {
         Painting painting = paintings.get(position);
-        holder.paintingName.setText(painting.getName());
+        holder.nameTextView.setText(painting.getName());
+        holder.imageView.setImageResource(painting.getImageResId());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (context instanceof FragmentActivity) {
+                FragmentActivity activity = (FragmentActivity) context;
+                PaintingDetailFragment fragment = PaintingDetailFragment.newInstance(
+                        painting.getName(),
+                        painting.getImageResId(),
+                        painting.getDescription(),
+                        painting.getArtist(),
+                        painting.getYear()
+                );
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     @Override
@@ -37,11 +62,13 @@ public class PaintingAdapter extends RecyclerView.Adapter<PaintingAdapter.Painti
     }
 
     public static class PaintingViewHolder extends RecyclerView.ViewHolder {
-        TextView paintingName;
+        TextView nameTextView;
+        ImageView imageView;
 
         public PaintingViewHolder(@NonNull View itemView) {
             super(itemView);
-            paintingName = itemView.findViewById(R.id.paintingName);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }
