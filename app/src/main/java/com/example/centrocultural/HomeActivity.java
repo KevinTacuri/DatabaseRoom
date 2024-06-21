@@ -23,11 +23,11 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager = null;
-    private FragmentTransaction fragmentTransaction = null;
-    private HomeFragment homeFragment = null;
-    private CuadrosFragment cuadrosFragment = null;
-    private MapaFragment mapaFragment = null;
+    private FragmentManager fragmentManager;
+    private HomeFragment homeFragment;
+    private CuadrosFragment cuadrosFragment;
+    private MapaFragment mapaFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +69,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private void loadFragment(Fragment fragment){
         if(fragmentManager!=null){
-            fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
             fragmentTransaction.commit();
         }
-
     }
 }
 

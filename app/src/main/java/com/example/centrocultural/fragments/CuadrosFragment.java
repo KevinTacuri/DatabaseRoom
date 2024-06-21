@@ -1,13 +1,13 @@
 package com.example.centrocultural.fragments;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.centrocultural.Painting;
 import com.example.centrocultural.R;
@@ -19,8 +19,14 @@ import java.util.List;
 
 public class CuadrosFragment extends Fragment {
 
-    public static CuadrosFragment newInstance(String param1, String param2) {
-        return new CuadrosFragment();
+    private static final String ARG_ROOM_INDEX = "arg_room_index";
+
+    public static CuadrosFragment newInstance(int roomIndex, int paintingIndex) {
+        CuadrosFragment fragment = new CuadrosFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_ROOM_INDEX, roomIndex);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -30,9 +36,18 @@ public class CuadrosFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.roomsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Obtener el índice de la sala desde los argumentos
+        int roomIndex = getArguments() != null ? getArguments().getInt(ARG_ROOM_INDEX) : -1;
+
         List<Room> rooms = createRooms();
-        RoomAdapter adapter = new RoomAdapter(rooms, getContext());
-        recyclerView.setAdapter(adapter);
+        if (roomIndex >= 0 && roomIndex < rooms.size()) {
+            // Si el índice de la sala es válido, abrir la lista correspondiente
+            Room room = rooms.get(roomIndex);
+            RoomAdapter adapter = new RoomAdapter(rooms, getContext());
+            recyclerView.setAdapter(adapter);
+        } else {
+
+        }
 
         return view;
     }
@@ -40,7 +55,6 @@ public class CuadrosFragment extends Fragment {
     private List<Room> createRooms() {
         List<Room> rooms = new ArrayList<>();
 
-        // Sala 1: Galería para Maestros
         List<Painting> paintingsSala1 = new ArrayList<>();
         paintingsSala1.add(new Painting(
                 "ARCÁNGEL DE LA PUSKA DE PITUMARCA",
@@ -72,7 +86,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 1 Galería para Maestros", paintingsSala1));
 
-        // Sala 2: Galería para Artistas
         List<Painting> paintingsSala2 = new ArrayList<>();
         paintingsSala2.add(new Painting(
                 "RESIDUO B: La memoria es un refugio en ruinas #1",
@@ -97,7 +110,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 2 Galería para Artistas", paintingsSala2));
 
-        // Sala 3: Galería para obras tridimensionales
         List<Painting> paintingsSala3 = new ArrayList<>();
         paintingsSala3.add(new Painting(
                 "RESIDUO #11",
@@ -115,7 +127,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 3 Galería para obras tridimensionales", paintingsSala3));
 
-        // Sala 4: Galería para artistas jóvenes
         List<Painting> paintingsSala4 = new ArrayList<>();
         paintingsSala4.add(new Painting(
                 "CAMINO A LA LUNA Y A VENUS",
@@ -161,7 +172,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 4 Galería para artistas jóvenes", paintingsSala4));
 
-        // Sala 5: Galería para pequeños formatos
         List<Painting> paintingsSala5 = new ArrayList<>();
         paintingsSala5.add(new Painting(
                 "Zapping: conexión compartida",
@@ -179,7 +189,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 5 Galería para pequeños formatos", paintingsSala5));
 
-        // Sala 6: Galería de promoción
         List<Painting> paintingsSala6 = new ArrayList<>();
         paintingsSala6.add(new Painting(
                 "Diálogo perenne en la sala de estar",
@@ -197,7 +206,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 6 Galería de promoción", paintingsSala6));
 
-        // Sala 7: Galería para invitados
         List<Painting> paintingsSala7 = new ArrayList<>();
         paintingsSala7.add(new Painting(
                 "S/T",
@@ -215,7 +223,6 @@ public class CuadrosFragment extends Fragment {
         ));
         rooms.add(new Room("Sala 7 Galería para invitados", paintingsSala7));
 
-        // Sala 8: Galería de enlace
         List<Painting> paintingsSala8 = new ArrayList<>();
         paintingsSala8.add(new Painting(
                 "Sol de Mayo: Cada prenda en este cordel es un disparador de estímulos",
