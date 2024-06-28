@@ -21,7 +21,7 @@ public class CuadrosFragment extends Fragment {
 
     private static final String ARG_ROOM_INDEX = "arg_room_index";
 
-    public static CuadrosFragment newInstance(int roomIndex, int paintingIndex) {
+    public static CuadrosFragment newInstance(int roomIndex) {
         CuadrosFragment fragment = new CuadrosFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ROOM_INDEX, roomIndex);
@@ -43,10 +43,11 @@ public class CuadrosFragment extends Fragment {
         if (roomIndex >= 0 && roomIndex < rooms.size()) {
             // Si el índice de la sala es válido, abrir la lista correspondiente
             Room room = rooms.get(roomIndex);
-            RoomAdapter adapter = new RoomAdapter(rooms, getContext());
+            RoomAdapter adapter = new RoomAdapter(rooms, getContext()); // Pasar la lista completa de rooms
             recyclerView.setAdapter(adapter);
         } else {
-
+            // Manejar caso de índice inválido
+            // Puedes mostrar un mensaje de error o manejarlo como prefieras
         }
 
         return view;

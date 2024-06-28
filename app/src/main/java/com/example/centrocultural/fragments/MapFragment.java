@@ -17,25 +17,24 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.centrocultural.MapView;
 import com.example.centrocultural.R;
 
-public class MapaFragment extends Fragment {
+public class MapFragment extends Fragment {
 
     private FrameLayout mapContainer;
     private MapView mapView;
     private Button sala1Button, sala2Button, sala3Button, sala4Button, sala5Button, sala6Button, sala7Button, sala8Button;
 
-    public static MapaFragment newInstance(String s, String s1) {
-        MapaFragment fragment = new MapaFragment();
+    public static MapFragment newInstance(String param1, String param2) {
+        MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mapa, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         mapContainer = view.findViewById(R.id.mapContainer);
-        mapView = new MapView(getContext(), null);
+        mapView = new MapView(getContext(),null);
 
         // Agregar el MapView al contenedor
         mapContainer.addView(mapView);
