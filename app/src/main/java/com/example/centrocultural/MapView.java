@@ -34,7 +34,6 @@ public class MapView extends View {
         paintText.setTextAlign(Paint.Align.CENTER);
     }
 
-    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawGallery(canvas);
@@ -44,7 +43,7 @@ public class MapView extends View {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
-        // Escalar las dimensiones de las salas en función del tamaño de la pantalla
+        // Escala de las dimensiones del mapa
         float scaleX = width / 1000f; // Suponiendo que el diseño original es de 1000 de ancho
         float scaleY = height / 1000f; // Suponiendo que el diseño original es de 1000 de alto
 

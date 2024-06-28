@@ -20,15 +20,25 @@ import java.util.List;
 public class CuadrosFragment extends Fragment {
 
     private static final String ARG_ROOM_INDEX = "arg_room_index";
+    private static final String ARG_PAINTING_INDEX = "painting_index";
 
-    public static CuadrosFragment newInstance(int roomIndex) {
+    private int roomIndex;
+    private int paintingIndex;
+    public static CuadrosFragment newInstance(int roomIndex, int paintingIndex) {
         CuadrosFragment fragment = new CuadrosFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ROOM_INDEX, roomIndex);
+        args.putInt(ARG_PAINTING_INDEX, paintingIndex);
         fragment.setArguments(args);
         return fragment;
     }
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            roomIndex = getArguments().getInt(ARG_ROOM_INDEX);
+            paintingIndex = getArguments().getInt(ARG_PAINTING_INDEX);
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cuadros, container, false);
@@ -36,20 +46,16 @@ public class CuadrosFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.roomsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Obtener el índice de la sala desde los argumentos
-        int roomIndex = getArguments() != null ? getArguments().getInt(ARG_ROOM_INDEX) : -1;
-
         List<Room> rooms = createRooms();
-        if (roomIndex >= 0 && roomIndex < rooms.size()) {
-            // Si el índice de la sala es válido, abrir la lista correspondiente
-            Room room = rooms.get(roomIndex);
-            RoomAdapter adapter = new RoomAdapter(rooms, getContext()); // Pasar la lista completa de rooms
-            recyclerView.setAdapter(adapter);
-        } else {
-            // Manejar caso de índice inválido
-            // Puedes mostrar un mensaje de error o manejarlo como prefieras
-        }
+        Room selectedRoom = rooms.get(roomIndex);
+        List<Painting> paintings = selectedRoom.getPaintings();
 
+
+        if (roomIndex >= 0 && roomIndex < rooms.size()) {
+            Room room = rooms.get(roomIndex);
+            RoomAdapter adapter = new RoomAdapter(rooms, getContext());
+            recyclerView.setAdapter(adapter);
+        }
         return view;
     }
 

@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -48,20 +47,20 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.menu_home) {
-                    homeFragment = HomeFragment.newInstance("","");
+                    homeFragment = HomeFragment.newInstance("", "");
                     loadFragment(homeFragment);
                     return true;
                 } else if (menuItem.getItemId() == R.id.menu_cuadros) {
-                    cuadrosFragment = CuadrosFragment.newInstance(1);
+                    cuadrosFragment = CuadrosFragment.newInstance(1, 0);
                     loadFragment(cuadrosFragment);
                     return true;
                 } else if (menuItem.getItemId() == R.id.menu_mapa) {
-                    mapaFragment = MapFragment.newInstance("","");
+                    mapaFragment = MapFragment.newInstance("", "");
                     loadFragment(mapaFragment);
                     return true;
-                } else{
+                } else {
                     return false;
                 }
             }

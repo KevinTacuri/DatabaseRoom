@@ -36,17 +36,15 @@ public class MapFragment extends Fragment {
         mapContainer = view.findViewById(R.id.mapContainer);
         mapView = new MapView(getContext(),null);
 
-        // Agregar el MapView al contenedor
+        // Se agrega el MapView al contenedor
         mapContainer.addView(mapView);
 
-        // Usar ViewTreeObserver para esperar a que la vista se mida antes de agregar los botones
+        // ViewTreeObserver para medir la vista
         mapContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                // Quitar el listener para evitar llamadas repetidas
+                // Se quita el listener para evitar llamadas repetidas
                 mapContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                // Agregar los botones después de que la vista se haya medido
                 addButtons();
             }
         });
@@ -57,14 +55,12 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Agregar los botones cuando el fragmento está visible
         addButtons();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        // Eliminar los botones cuando el fragmento no está visible
         removeButtons();
     }
 
