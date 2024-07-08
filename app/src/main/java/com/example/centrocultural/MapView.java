@@ -33,12 +33,10 @@ public class MapView extends View {
         paintText.setTextSize(40);
         paintText.setTextAlign(Paint.Align.CENTER);
     }
-
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawGallery(canvas);
     }
-
     private void drawGallery(Canvas canvas) {
         int width = canvas.getWidth();
         int height = canvas.getHeight();

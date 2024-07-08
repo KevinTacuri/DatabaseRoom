@@ -34,7 +34,6 @@ public class Sala1Fragment extends Fragment {
                 paint.setColor(android.graphics.Color.BLACK);
                 paint.setStyle(android.graphics.Paint.Style.STROKE); // Solo bordes
                 paint.setStrokeWidth(5); // Grosor
-
                 canvas.drawRect(padding, padding, width - padding, height - padding, paint);
             }
         };
@@ -56,10 +55,7 @@ public class Sala1Fragment extends Fragment {
         // Icono en la centro superior
         ImageView topIcon = new ImageView(getContext());
         topIcon.setImageResource(R.drawable.sharp_aspect_ratio_24);
-        RelativeLayout.LayoutParams topParams = new RelativeLayout.LayoutParams(
-                iconSize,
-                iconSize
-        );
+        RelativeLayout.LayoutParams topParams = new RelativeLayout.LayoutParams(iconSize, iconSize);
         topParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         topParams.topMargin = padding;
         topIcon.setLayoutParams(topParams);

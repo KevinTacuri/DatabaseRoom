@@ -21,7 +21,7 @@ public class MapFragment extends Fragment {
 
     private FrameLayout mapContainer;
     private MapView mapView;
-    private Button sala1Button, sala2Button, sala3Button, sala4Button, sala5Button, sala6Button, sala7Button, sala8Button;
+    private Button sala1Button;
 
     public static MapFragment newInstance(String param1, String param2) {
         MapFragment fragment = new MapFragment();
@@ -69,33 +69,12 @@ public class MapFragment extends Fragment {
         float unitHeight = mapView.getHeight() / 10f;
 
         sala1Button = createButton("Sala 1", unitWidth, 7 * unitHeight, 2 * unitWidth, 2 * unitHeight, Sala1Fragment.class);
-        sala2Button = createButton("Sala 2", 3 * unitWidth, 7 * unitHeight, 2 * unitWidth, 2 * unitHeight, Sala2Fragment.class);
-        sala3Button = createButton("Sala 3", 5 * unitWidth, 7 * unitHeight, 2 * unitWidth, 2 * unitHeight, Sala3Fragment.class);
-        sala4Button = createButton("Sala 4", 7 * unitWidth, 5 * unitHeight, 2 * unitWidth, 4 * unitHeight, Sala4Fragment.class);
-        sala5Button = createButton("Sala 5", 7 * unitWidth, 1 * unitHeight, 2 * unitWidth, 3 * unitHeight, Sala5Fragment.class);
-        sala6Button = createButton("Sala 6", 4 * unitWidth, 1 * unitHeight, 3 * unitWidth, 2 * unitHeight, Sala6Fragment.class);
-        sala7Button = createButton("Sala 7", unitWidth, unitHeight, 3 * unitWidth, 2 * unitHeight, Sala7Fragment.class);
-        sala8Button = createButton("Sala 8", unitWidth, 3 * unitHeight, 2 * unitWidth, 4 * unitHeight, Sala8Fragment.class);
 
         mapContainer.addView(sala1Button);
-        mapContainer.addView(sala2Button);
-        mapContainer.addView(sala3Button);
-        mapContainer.addView(sala4Button);
-        mapContainer.addView(sala5Button);
-        mapContainer.addView(sala6Button);
-        mapContainer.addView(sala7Button);
-        mapContainer.addView(sala8Button);
     }
 
     private void removeButtons() {
         mapContainer.removeView(sala1Button);
-        mapContainer.removeView(sala2Button);
-        mapContainer.removeView(sala3Button);
-        mapContainer.removeView(sala4Button);
-        mapContainer.removeView(sala5Button);
-        mapContainer.removeView(sala6Button);
-        mapContainer.removeView(sala7Button);
-        mapContainer.removeView(sala8Button);
     }
 
     private Button createButton(String text, float left, float top, float width, float height, final Class<? extends Fragment> fragmentClass) {

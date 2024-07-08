@@ -1,4 +1,4 @@
-package com.example.centrocultural.entitys;
+package com.example.centrocultural.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -27,6 +27,7 @@ public class Pintura {
     private String anio;
     private String enlace;
 
+    //Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getTitulo() { return titulo; }

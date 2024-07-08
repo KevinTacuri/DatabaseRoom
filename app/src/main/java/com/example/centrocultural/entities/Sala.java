@@ -1,4 +1,4 @@
-package com.example.centrocultural.entitys;
+package com.example.centrocultural.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

@@ -22,6 +22,11 @@ import com.example.centrocultural.fragments.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import com.example.centrocultural.AppDatabase;
+import com.example.centrocultural.DatabaseClient;
+import com.example.centrocultural.entities.Autor;
+import com.example.centrocultural.entities.Pintura;
+import com.example.centrocultural.entities.Sala;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -68,6 +73,36 @@ public class HomeActivity extends AppCompatActivity {
 
         homeFragment = HomeFragment.newInstance("", "");
         loadFragment(homeFragment);
+
+        AppDatabase db = DatabaseClient.getInstance(getApplicationContext()).getDatabase();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Sala sala1 = new Sala();
+                sala1.setNombre("Sala 1");
+                sala1.setDescripcion("Galería para Maestros");
+
+                Autor autor1 = new Autor();
+                autor1.setNombre("Noé");
+                autor1.setApellido("Mamani Ccajiavilca");
+
+                Pintura pintura1 = new Pintura();
+                pintura1.setTitulo("ARCÁNGEL DE LA PUSKA DE PITUMARCA");
+                pintura1.setAutorId(1); //
+                pintura1.setSalaId(1); //
+                pintura1.setTecnica("Plateado en alto relieve policromado 120 x 90 cm.");
+                pintura1.setCategoria("Relieve");
+                pintura1.setDescripcion("Descripción de la pintura");
+                pintura1.setAnio("2022");
+                pintura1.setEnlace("enlace_a_la_imagen.jpg");
+
+                // Insertar los datos
+                db.salaDao().insert(sala1);
+                db.autorDao().insert(autor1);
+                db.pinturaDao().insert(pintura1);
+            }
+        }).start();
     }
 
     private void loadFragment(Fragment fragment){
